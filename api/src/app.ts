@@ -25,7 +25,10 @@ class App {
             .unless({
                 path:[
                     '/',
-                    '/user'
+                    '/user',
+                    '/sede',
+                    '/sede/getAll',
+                    '/city'
                 ]
             })
         );

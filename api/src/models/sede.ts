@@ -9,6 +9,7 @@ export const SedeSchema = new Schema({
     },
     city:{
         type:Schema.ObjectId,
-        ref: 'City'
+        ref: 'City',
+        required: 'Ingrese la ciudad'
     }
 });

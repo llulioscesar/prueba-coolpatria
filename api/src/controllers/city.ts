@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose'
 import {Request, Response} from 'express'
 import {CitySchema} from '../models/city'
 
-const City = mongoose.model('City', CitySchema);
+export const City = mongoose.model('City', CitySchema);
 
 export class CityController {
 
