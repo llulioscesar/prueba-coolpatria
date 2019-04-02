@@ -7,3 +7,7 @@ Variables de entorno
 - **DB_PORT** puerto del servidor de la base de datos por defecto es 27017
 - **DB_NAME** nombre de la base de datos por defecto es paingain
 - **JWT_SECRET** Contraseña para jwt token por defecto es paingain
+
+Tener instalado global typescript y ts-node
+- npm install -g typescript ts-node
+- yarn globlal add typescript ts-node
