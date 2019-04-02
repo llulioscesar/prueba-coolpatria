@@ -24,16 +24,17 @@ class App {
         this.app.use(jwt({secret:JWTSecret})
             .unless({
                 path:[
-                    '/'
+                    '/',
+                    '/user'
                 ]
             })
-        )
+        );
     }
 
     private mongoSetup(): void{
 
-        let user = process.env.DB_USER;
-        let pass = process.env.DB_PASS;
+        let user = process.env.DB_USER || 'root';
+        let pass = process.env.DB_PASS || 'root';
         let db = process.env.DB_NAME || 'paingain';
         let host = process.env.DB_HOST || 'localhost';
         let port = process.env.DB_PORT || 27017;
@@ -42,7 +43,7 @@ class App {
         if (user != undefined){
             url = url + user + ':' + pass + '@';
         }
-        url = url + host + ':' + port + '/' + db;
+        url = url + host + ':' + port + '/' + db + "?authSource=admin";
 
         mongoose.promise = global.Promise;
         mongoose.connect(url, { useNewUrlParser: true })

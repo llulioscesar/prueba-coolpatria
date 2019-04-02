@@ -1,18 +1,20 @@
 import {Request, Response} from 'express'
 import {ContactController} from '../controllers/crmController'
+import {Route} from './route'
 
-export class Contact {
+export class Contact extends Route{
+
     public contactController: ContactController = new ContactController();
 
-    constructor(app){
-        app.route('/')
+    public start():void{
+        this.app.route('/')
             .get((req:Request, res:Response) => {
                 res.status(200).send({
                     message: 'GET request sucess full!'
                 })
             });
 
-        app.route('/contact')
+        this.app.route('/contact')
             .get((req:Request, res: Response) => {
                 res.status(200).send({
                     message: 'GET request sucess full!'
@@ -20,7 +22,7 @@ export class Contact {
             })
             .post(this.contactController.addNewContact);
 
-        app.route('/contact/:contactId')
+        this.app.route('/contact/:contactId')
             .get(this.contactController.getContactWithID)
             .put(this.contactController.updateContact)
             .delete(this.contactController.deleteContact)
