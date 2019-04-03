@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import {Routing} from "./app.routing";
+import {CoreModule} from "./core/core.module";
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {Routing} from "./app.routing";
     HttpClientModule,
     AppRoutingModule,
     Routing,
+    CoreModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatInputModule,
