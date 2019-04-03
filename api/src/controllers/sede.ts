@@ -8,6 +8,11 @@ const Sede = mongoose.model('Sede', SedeSchema);
 export class SedeController {
 
     public add(req:Request, res:Response){
+        if(req['user'].isAdmin == false){
+            return res.status(401).json({
+                errmsg: 'No esta autorizado para el este recurso'
+            })
+        }
         let newSede = new Sede(req.body);
         newSede.save((err, city) => {
             if(err){
@@ -18,6 +23,11 @@ export class SedeController {
     }
 
     public getAll(req:Request, res:Response){
+        if(req['user'].isAdmin == false){
+            return res.status(401).json({
+                errmsg: 'No esta autorizado para el este recurso'
+            })
+        }
         Sede.find({}, (err, sedes) => {
             if(err){
                 res.status(500).json(err)

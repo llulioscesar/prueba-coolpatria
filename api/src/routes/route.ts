@@ -1,3 +1,4 @@
+import {Request} from 'express'
 export abstract class Route {
     protected app;
     protected endPoint;
@@ -5,4 +6,5 @@ export abstract class Route {
         this.app = app;
         this.endPoint = endPoint;
     }
+
 }

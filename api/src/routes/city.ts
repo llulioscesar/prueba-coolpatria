@@ -7,6 +7,7 @@ export class CityRouter extends Route {
 
     public start():void{
         this.app.route(this.endPoint)
+            .get(this.cityController.getAll)
             .post(this.cityController.add);
     }
 

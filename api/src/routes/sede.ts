@@ -8,9 +8,7 @@ export class SedeRoute extends Route{
     public start():void{
 
         this.app.route(this.endPoint)
-            .post(this.sedeController.add);
-
-        this.app.route(this.endPoint + '/getAll')
+            .post(this.sedeController.add)
             .get(this.sedeController.getAll);
 
     }

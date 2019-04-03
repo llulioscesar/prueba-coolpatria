@@ -24,8 +24,8 @@ class App {
         this.app.use(jwt({secret:JWTSecret})
             .unless({
                 path:[
-                    '/user',
                     '/user/login',
+                    'auth/renovar'
                 ]
             })
         );
