@@ -56,13 +56,8 @@ export class UserController {
                     admin: user.isAdmin
                 }, JWTSecret, {algorithm : 'HS256'});
                 return res.json({
-                    _id: user._id,
-                    name: user.name,
-                    email: user.email,
-                    document: user.document,
-                    token: token,
-                    isAdmin: user.isAdmin,
-                    create_date: user.created_date
+                    token,
+                    user
                 })
             }
             res.status(401).json({
