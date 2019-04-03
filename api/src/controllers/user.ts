@@ -4,6 +4,9 @@ import {UserSchema} from '../models/user'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import {JWTSecret} from "../app";
+import {Client} from "./cliente";
+import {Sede} from "./sede";
+
 
 const User = mongoose.model('User', UserSchema);
 const saltRound : number = 10;
@@ -25,17 +28,52 @@ export class UserController {
     }
 
     public add(req: Request, res: Response){
-        let newUser = new User(req.body);
-        newUser.isAdmin = false;
-        if (newUser.password != undefined){
-            newUser.password = bcrypt.hashSync(newUser.password, saltRound);
+        let user = req.body.user;
+        let sede = req.body.sede;
+
+        if(user == undefined || sede == undefined){
+            return res.status(500).json({
+                errmsg: 'Operacion cancelada. Datos incompletos'
+            })
         }
-        newUser.save((err, user) => {
+
+        Sede.findById(sede, (err, sede) => {
             if(err){
-                res.status(500).json(err);
+                return res.status(500).json(err)
             }
-            res.json(user);
+            Client.count({sede:{$eq: sede._id}}, (err, count) => {
+                if(err){
+                    return res.status(500).json(err);
+                }
+                if(count < 301){
+                    let newUser = new User(user);
+                    newUser.isAdmin = false;
+                    if (newUser.password != undefined){
+                        newUser.password = bcrypt.hashSync(newUser.password, saltRound);
+                    }
+                    newUser.save((err, user) => {
+                        if(err){
+                            return res.status(500).json(err);
+                        }
+                        let client = new Client({
+                            user: user._id,
+                            sede: sede._id
+                        });
+                        client.save((err, cliente) => {
+                            if(err){
+                                return res.status(500).json(err)
+                            }
+                            return res.json(user);
+                        })
+                    });
+                } else {
+                    return res.status(500).json({
+                        errmsg: 'Esta sede supero el limite de usuario permitidos'
+                    })
+                }
+            });
         })
+
     }
 
     public identify(req:Request, res:Response){

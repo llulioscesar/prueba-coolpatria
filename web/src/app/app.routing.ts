@@ -6,11 +6,17 @@ import {NoAuthorizatedGuard} from "./core/guards/no-authorizated.guard";
 import {CiudadesComponent} from "./admin/components/ciudades/ciudades.component";
 import {SedesComponent} from "./admin/components/sedes/sedes.component";
 import {DepartamentoComponent} from "./admin/components/departamento/departamento.component";
+import {RegisterComponent} from "./register/register.component";
 
 const appRoutes = [
   {
     path: '',
     component: LoginComponent,
+    canActivate: [NoAuthorizatedGuard]
+  },
+  {
+    path: 'registro',
+    component: RegisterComponent,
     canActivate: [NoAuthorizatedGuard]
   },
   {

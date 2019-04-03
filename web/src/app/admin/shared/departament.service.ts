@@ -17,7 +17,7 @@ export class DepartamentService {
   }
 
   getAll(): Observable<DepartamentModel[]>{
-    return this.http.get<DepartamentModel[]>('/api/departament', {headers: {Authorization: 'Bearer ' + this.storageService.getCurrentSession().token}})
+    return this.http.get<DepartamentModel[]>('/api/departament/public')
   }
 
 }

@@ -25,7 +25,11 @@ class App {
             .unless({
                 path:[
                     '/user/login',
-                    'auth/renovar'
+                    '/user/register',
+                    'auth/renovar',
+                    '/sede/public',
+                    '/city/public',
+                    '/departament/public'
                 ]
             })
         );

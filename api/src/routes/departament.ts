@@ -8,8 +8,10 @@ export class DepartamentRoute extends Route {
     public start():void{
 
         this.app.route(this.endPoint)
-            .get(this.departamentController.getAll)
             .post(this.departamentController.add);
+
+        this.app.route(this.endPoint + '/public')
+            .get(this.departamentController.getAll);
     }
 
 }

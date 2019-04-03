@@ -22,11 +22,6 @@ export class DepartamentController {
     };
 
     public getAll(req: Request, res:Response){
-        if(req['user'].isAdmin === false){
-            return res.status(401).json({
-                errmsg: 'No esta autorizado para el este recurso'
-            })
-        }
         Departament.find().sort({name:1}).exec((err, deps) => {
             if(err){
                 return res.status(500).json(err);

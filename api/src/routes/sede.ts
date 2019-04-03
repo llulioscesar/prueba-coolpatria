@@ -8,8 +8,13 @@ export class SedeRoute extends Route{
     public start():void{
 
         this.app.route(this.endPoint)
-            .post(this.sedeController.add)
+            .post(this.sedeController.add);
+
+        this.app.route(this.endPoint + '/public')
             .get(this.sedeController.getAll);
+
+        this.app.route(this.endPoint + '/cities')
+            .get(this.sedeController.getAllCities);
 
     }
 

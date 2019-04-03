@@ -32,9 +32,8 @@ export class CiudadesComponent implements OnInit {
         this.departamentos = data;
       }
     );
-    this.cityService.getAll().subscribe(
+    this.cityService.getAllDepartament().subscribe(
       data => {
-        console.log(data)
         this.dataSource = new MatTableDataSource();
         this.dataSource.data = data;
         this.dataSource.sort = this.sort;

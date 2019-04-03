@@ -1,10 +1,10 @@
 <div class="aligner">
-  <mat-card class="aligner-center-item">
+  <mat-card class="aligner-center-item mat-elevation-z4">
     <mat-card-title>
       Login Form
     </mat-card-title>
     <mat-card-content>
-      <form id="login-form" #lForm="ngForm" [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
+      <form id="login-form" [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
         <mat-form-field appearance="outline" style="width: 100%;margin-bottom: 10px;" [ngClass]="{'mat-input-invalid': submitted && error?.code == 1}">
           <mat-label>Correo electronico</mat-label>
           <input matInput type="text" formControlName="email" placeholder="usuario@miemail.com"/>
@@ -24,7 +24,8 @@
       </form>
     </mat-card-content>
     <mat-card-actions style="text-align: right;">
-      <button mat-raised-button type="submit" form="login-form"> Sign In</button>
+      <button mat-raised-button color="primary" type="submit" form="login-form">Ingresar</button>
+      <a mat-raised-button color="primary" [routerLink]="['/registro']">Registrarse</a>
     </mat-card-actions>
   </mat-card>
 </div>

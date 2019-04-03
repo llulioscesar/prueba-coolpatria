@@ -27,6 +27,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CiudadesComponent } from './admin/components/ciudades/ciudades.component';
 import { SedesComponent } from './admin/components/sedes/sedes.component';
 import { DepartamentoComponent } from './admin/components/departamento/departamento.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { DepartamentoComponent } from './admin/components/departamento/departame
     MainNavComponent,
     CiudadesComponent,
     SedesComponent,
-    DepartamentoComponent
+    DepartamentoComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

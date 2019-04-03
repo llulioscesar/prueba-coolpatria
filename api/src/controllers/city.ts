@@ -22,7 +22,7 @@ export class CityController {
         })
     }
 
-    public getAll(req:Request, res: Response){
+    public getAllDepartaments(req: Request, res: Response){
         if(req['user'].isAdmin == false){
             return res.status(401).json({
                 errmsg: 'No esta autorizado para el este recurso'
@@ -38,6 +38,15 @@ export class CityController {
                 }
                 res.json(deps)
             })
+        })
+    }
+
+    public getAll(req:Request, res: Response){
+        City.find().sort({name: 1}).exec((err, citys) => {
+            if(err){
+                return res.status(500).json(err);
+            }
+            res.json(citys);
         })
     }
 
