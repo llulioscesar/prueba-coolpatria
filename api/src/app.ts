@@ -24,11 +24,8 @@ class App {
         this.app.use(jwt({secret:JWTSecret})
             .unless({
                 path:[
-                    '/',
                     '/user',
-                    '/sede',
-                    '/sede/getAll',
-                    '/city'
+                    '/user/login',
                 ]
             })
         );

@@ -10,6 +10,9 @@ export class UserRoute extends Route{
 
         this.app.route(this.endPoint + '/admin')
             .post(this.userController.addAdmin);
+
+        this.app.route(this.endPoint + '/login')
+            .post(this.userController.identify)
     }
 
 }
