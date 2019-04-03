@@ -8,6 +8,7 @@ import {SedesComponent} from "./admin/components/sedes/sedes.component";
 import {DepartamentoComponent} from "./admin/components/departamento/departamento.component";
 import {RegisterComponent} from "./register/register.component";
 import {HomeComponent} from "./admin/components/home/home.component";
+import {ClienteComponent} from "./cliente/cliente.component";
 
 const appRoutes = [
   {
@@ -19,6 +20,11 @@ const appRoutes = [
     path: 'registro',
     component: RegisterComponent,
     canActivate: [NoAuthorizatedGuard]
+  },
+  {
+    path: 'cliente',
+    component: ClienteComponent,
+    canActivate: [AuthorizatedGuard]
   },
   {
     path: 'admin',

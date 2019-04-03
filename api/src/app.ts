@@ -26,6 +26,7 @@ class App {
                 path:[
                     '/user/login',
                     '/user/register',
+                    '/user/admin',
                     'auth/renovar',
                     '/sede/public',
                     '/city/public',
@@ -33,6 +34,12 @@ class App {
                 ]
             })
         );
+        this.app.use((err, req, res, next) => {
+            console.error(err.stack);
+            res.status(500).json({
+                errmsg: err.message
+            });
+        });
     }
 
     private mongoSetup(): void{

@@ -1,0 +1,12 @@
+<div class="aligner">
+  <mat-card class="aligner-item mat-elevation-z4">
+    <mat-card-title>{{user.name}}</mat-card-title>
+    <mat-card-subtitle>{{user.document}}</mat-card-subtitle>
+    <mat-card-content>
+      <p><strong>Correo:</strong> {{user.email}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button (click)="salir($event)" mat-raised-button color="primary">Salir</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

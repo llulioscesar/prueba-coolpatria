@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   private correctLogin(data:SesionModel){
     this.storage.setCurrentSession(data);
-    let path = (data.user.isAdmin == true ? 'admin': 'app') || '';
+    let path = (data.user.isAdmin == true ? 'admin': 'cliente') || '';
     this.router.navigate([path]);
   }
 

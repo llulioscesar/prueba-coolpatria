@@ -15,7 +15,7 @@ export class NoAuthorizatedGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if(this.storageService.isAuthenticated()){
-      this.router.navigate([this.storageService.getCurrentUser().isAdmin ? 'admin': 'app']);
+      this.router.navigate([this.storageService.getCurrentUser().isAdmin ? 'admin': 'cliente']);
       return false;
     }
     return true;

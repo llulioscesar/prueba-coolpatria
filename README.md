@@ -8,6 +8,23 @@ Variables de entorno
 - **DB_NAME** nombre de la base de datos por defecto es paingain
 - **JWT_SECRET** Contraseña para jwt token por defecto es paingain
 
-Tener instalado global **typescript** y **ts-node**
-- npm install -g typescript ts-node
-- yarn globlal add typescript ts-node
+# Comando api
+- yarn build para compilar
+- yarn start ejecutar modo produccion
+- yarn prod compilar y ejecutar
+- yarn dev ejecutar modo development
+
+# Rutas no protegidas con jwt
+- /user/login
+- /user/register
+- /user/admin
+- /auth/renovar
+- /sede/public
+- /city/public
+- /departament/public
+
+# Rutas
+- **POST => /user/login** (name, password) Incio de sesion
+- **POST => /user/register** (user:{name, document, email, password}, sede: string) registar cliente
+- **POST => /user/admin** ({name, document, email, password}) registrar admin
+- **POST => /user/**

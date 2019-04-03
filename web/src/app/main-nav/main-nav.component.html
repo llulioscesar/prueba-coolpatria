@@ -9,6 +9,7 @@
       <a routerLinkActive #routerLinkActiveInstance="routerLinkActive" [routerLink]="['/admin/departamentos']" mat-list-item >Departamentos</a>
       <a routerLinkActive #routerLinkActiveInstance="routerLinkActive" [routerLink]="['/admin/ciudades']" mat-list-item >Ciudades</a>
       <a routerLinkActive #routerLinkActiveInstance="routerLinkActive" [routerLink]="['/admin/sedes']" mat-list-item >Sedes</a>
+      <a mat-list-item (click)="salir($event)">Salir</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
