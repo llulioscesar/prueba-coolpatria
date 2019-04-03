@@ -6,6 +6,9 @@ import {SedeModel} from "../core/models/sede.model";
 import {DepartamentService} from "../admin/shared/departament.service";
 import {CityService} from "../admin/shared/city.service";
 import {SedeService} from "../admin/shared/sede.service";
+import {RegisterService} from "./shared/register.service";
+import {RegisterObjectModel} from "./shared/register-object.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -34,7 +37,9 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private departamentService: DepartamentService,
               private cityService: CityService,
-              private sedeService: SedeService) { }
+              private sedeService: SedeService,
+              private registerService: RegisterService,
+              private router: Router) { }
 
   ngOnInit() {
     this.departamentService.getAll().subscribe(
@@ -51,7 +56,7 @@ export class RegisterComponent implements OnInit {
       data => {
         this.sedes = data;
       }
-    )
+    );
     this.form = new FormBuilder().group({
       email: [''],
       password1: [''],
@@ -66,43 +71,30 @@ export class RegisterComponent implements OnInit {
   }
 
   onChange():void{
-    this.form.valueChanges.subscribe(value => {
-      console.log(value);
-      if(value.dep == null){
-        value.city = null;
-        value.sede = null;
-        this.mCiudad = [];
-        this.mSede = [];
-      } else {
-        let temp : CityModel[] = [];
+    this.form.get('dep').valueChanges.subscribe(value => {
+      this.mCiudad = [];
+      this.mSede = [];
+      if (value != null){
         this.ciudades.forEach(city => {
-          if(city.departament == value.dep){
-            temp.push(city);
+          if(value == city.departament){
+            this.mCiudad.push(city);
           }
-        });
-        this.mCiudad = temp;
+        })
       }
-      if(value.city == null){
-        value.sede = null;
-        this.mCiudad = [];
-        this.mSede = [];
-      } else {
-        let temp : SedeModel[] = [];
+    });
+
+    this.form.get('city').valueChanges.subscribe(value => {
+      this.mSede = [];
+      if(value != null){
         this.sedes.forEach(sede => {
-          if (sede.city == value.city){
-            temp.push(sede);
+          if(value == sede.city){
+            this.mSede.push(sede);
           }
-        });
-        this.mSede = temp;
+        })
       }
-      if(this.mCiudad.length == 0){
-        value.city = null;
-        value.sede = null;
-        this.mSede = [];
-      }
-      if(this.mSede.length == 0){
-        value.sede = null;
-      }
+    });
+
+    this.form.valueChanges.subscribe(value => {
       if(value.name == '' || value.email == '' || value.document == '' || value.dep == null || value.city == null || value.sede == null || value.password1 == '' || value.password2 == ''){
         this.send = true
       } else if(value.password1 !== value.password2){
@@ -114,7 +106,15 @@ export class RegisterComponent implements OnInit {
   }
 
   submit():void{
-    console.log("enviar")
+    this.registerService.send(new RegisterObjectModel(this.form.value)).subscribe(
+      data => {
+        window.alert("Se ha registrado correctamente");
+        this.router.navigate(['']);
+      },
+      err => {
+        window.alert(err.error.errmsg);
+      }
+    )
   }
 
 }

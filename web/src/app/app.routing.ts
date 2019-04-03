@@ -7,6 +7,7 @@ import {CiudadesComponent} from "./admin/components/ciudades/ciudades.component"
 import {SedesComponent} from "./admin/components/sedes/sedes.component";
 import {DepartamentoComponent} from "./admin/components/departamento/departamento.component";
 import {RegisterComponent} from "./register/register.component";
+import {HomeComponent} from "./admin/components/home/home.component";
 
 const appRoutes = [
   {
@@ -24,6 +25,10 @@ const appRoutes = [
     component: AdminComponent,
     canActivate: [AuthorizatedGuard],
     children:[
+      {
+        path:'',
+        component: HomeComponent
+      },
       {
         path: 'ciudades',
         component: CiudadesComponent

@@ -8,7 +8,7 @@ import {Client} from "./cliente";
 import {Sede} from "./sede";
 
 
-const User = mongoose.model('User', UserSchema);
+export const User = mongoose.model('User', UserSchema);
 const saltRound : number = 10;
 
 export class UserController {
@@ -37,41 +37,56 @@ export class UserController {
             })
         }
 
-        Sede.findById(sede, (err, sede) => {
+        User.findOne({$or: [
+            {document: user.document},
+            {email: user.email}
+        ]}, (err, cli) => {
             if(err){
-                return res.status(500).json(err)
+                return res.status(500).json(err);
             }
-            Client.count({sede:{$eq: sede._id}}, (err, count) => {
-                if(err){
-                    return res.status(500).json(err);
-                }
-                if(count < 301){
-                    let newUser = new User(user);
-                    newUser.isAdmin = false;
-                    if (newUser.password != undefined){
-                        newUser.password = bcrypt.hashSync(newUser.password, saltRound);
+            if(cli == null){
+                Sede.findById(sede, (err, sede) => {
+                    if(err){
+                        return res.status(500).json(err)
                     }
-                    newUser.save((err, user) => {
+                    Client.count({sede:{$eq: sede._id}}, (err, count) => {
                         if(err){
                             return res.status(500).json(err);
                         }
-                        let client = new Client({
-                            user: user._id,
-                            sede: sede._id
-                        });
-                        client.save((err, cliente) => {
-                            if(err){
-                                return res.status(500).json(err)
+                        if(count < 301){
+                            let newUser = new User(user);
+                            newUser.isAdmin = false;
+                            if (newUser.password != undefined){
+                                newUser.password = bcrypt.hashSync(newUser.password, saltRound);
                             }
-                            return res.json(user);
-                        })
+                            newUser.save((err, user) => {
+                                if(err){
+                                    return res.status(500).json(err);
+                                }
+                                let client = new Client({
+                                    user: user._id,
+                                    sede: sede._id
+                                });
+                                client.save((err, cliente) => {
+                                    if(err){
+                                        return res.status(500).json(err)
+                                    }
+                                    user.password = "";
+                                    return res.json(user);
+                                })
+                            });
+                        } else {
+                            return res.status(500).json({
+                                errmsg: 'Esta sede supero el limite de usuario permitidos'
+                            })
+                        }
                     });
-                } else {
-                    return res.status(500).json({
-                        errmsg: 'Esta sede supero el limite de usuario permitidos'
-                    })
-                }
-            });
+                })
+            }else {
+                return res.status(401).json({
+                    errmsg: 'Ya se encuentra registrado'
+                })
+            }
         })
 
     }

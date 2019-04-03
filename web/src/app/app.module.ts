@@ -28,6 +28,7 @@ import { CiudadesComponent } from './admin/components/ciudades/ciudades.componen
 import { SedesComponent } from './admin/components/sedes/sedes.component';
 import { DepartamentoComponent } from './admin/components/departamento/departamento.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './admin/components/home/home.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { RegisterComponent } from './register/register.component';
     CiudadesComponent,
     SedesComponent,
     DepartamentoComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
