@@ -1,0 +1,53 @@
+<div style="padding: 24px">
+
+  <h1>Ciudades</h1>
+
+  <form class="mat-elevation-z2" style="background:#fff;margin-bottom: 50px;padding: 24px" id="form" [formGroup]="form" (ngSubmit)="submitNew()">
+    <p>Nueva ciudad</p>
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" placeholder="Cesar" formControlName="name"/>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin-left: 5px">
+      <mat-label>Departamento</mat-label>
+      <mat-select formControlName="departament" placeholder="Cundinamarca">
+        <mat-option value="null">Ninguno</mat-option>
+        <mat-option [value]="dep._id" *ngFor="let dep of departamentos">{{dep.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p>
+      <button [disabled]="send" type="submit" form="form" mat-raised-button color="primary">Guardar</button>
+    </p>
+  </form>
+
+  <div class="mat-elevation-z2">
+    <mat-form-field appearance="outline" style="margin: 24px 24px 0 24px">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="applyFilter($event.target.value)"
+             placeholder="Escriba algo para filtrar">
+    </mat-form-field>
+    <mat-table [dataSource]="dataSource" matSort>
+      <!--  Columna ID-->
+      <ng-container matColumnDef="_id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Id</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row._id}} </mat-cell>
+      </ng-container>
+
+      <!-- Columna Nombre-->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="departament.name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Departamento </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.departament.name}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColmns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColmns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="25" [showFirstLastButtons]="true"></mat-paginator>
+  </div>
+
+</div>
