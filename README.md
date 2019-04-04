@@ -27,4 +27,12 @@ Variables de entorno
 - **POST => /user/login** (name, password) Incio de sesion
 - **POST => /user/register** (user:{name, document, email, password}, sede: string) registar cliente
 - **POST => /user/admin** ({name, document, email, password}) registrar admin
-- **POST => /user/**
+- **GET => /user/sede/:id** Obtiene los clientes de una determinada sede
+- **POST => /city** (name, departament) registra una ciudad
+- **GET => /city/public** obtiene todas las ciudades registradas
+- **GET => /city/departament**/ Obtiene las ciudades con los departamentos
+- **POST => /departament** (name) registra un departamento
+- **GET => /departament/public** obtiene todos los departamentos registrados
+- **POST => /sede** (name, city) registra una nueva sede
+- **GET => /sede/public** obtiene todas las sedes registradas
+- **GET => /sede/city** obtiene todas las sedes con las cidades asociadas
